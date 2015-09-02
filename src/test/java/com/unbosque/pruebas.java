@@ -6,6 +6,8 @@
 package com.unbosque;
 
 import com.unbosque.singletonsf2.BaseDeDatos;
+import com.unbosque.singletonsf2.Hilos;
+import java.sql.SQLException;
 import static org.testng.Assert.*;
 
 import org.testng.annotations.Test;
@@ -24,5 +26,22 @@ public class pruebas {
 
         BaseDeDatos bd = BaseDeDatos.getInstancia();
         bd.getConnection();
+      
     }
+      @Test
+    public static void probarIniciarHilos() throws ClassNotFoundException {
+
+        Hilos a = new Hilos();
+        a.iniciarHilos();
+        
+    }
+    
+       @Test
+    public static void probarSelectHilos() throws SQLException, ClassNotFoundException {
+
+        Hilos a = new Hilos();
+        a.selectHilos();
+         BaseDeDatos.getInstancia().Close();
+    }
+    
 }

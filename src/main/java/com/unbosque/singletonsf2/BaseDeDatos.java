@@ -5,14 +5,9 @@
  */
 package com.unbosque.singletonsf2;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-import java.sql.ResultSet;
-
 /**
  *
- * @author ingeneo
+ * @author Scabrera
  */
 public class BaseDeDatos {
 
@@ -37,7 +32,7 @@ public class BaseDeDatos {
     }
 
     /**
-     * Metodo static q llama al constructor privado
+     * Metodo static que llama al constructor privado
      *
      * @returns Instancia unica de la clase
      */
@@ -50,6 +45,7 @@ public class BaseDeDatos {
 
     /**
      * obtener la conexion
+     * @return 
      * @returns Conexion a la base de datos
      */
     public java.sql.Connection getConnection() {
@@ -74,14 +70,16 @@ public class BaseDeDatos {
             } 
          
             catch (java.sql.SQLException e) {
+                
                 System.err.println("Error al establecer la conexion."+e.getMessage());
-                return;
+                 throw new Exception("Error al establecer la conexion."+e.getMessage());
+              
             }
 
 // Deshabilitacion del autocommit
             try {
-                connection.setAutoCommit(false);
-                System.out.println("Auto-commit deshabilitado.");
+               connection.setAutoCommit(true);
+               System.out.println("Auto-commit .");
             } catch (java.sql.SQLException e) {
                 System.out.println("Error al deshabilitar el auto-commit.");
                 return;
