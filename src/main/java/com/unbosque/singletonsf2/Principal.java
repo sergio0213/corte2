@@ -13,8 +13,9 @@ public class Principal {
 
     public Principal() {
     }
+
     public static void main(String[] args) throws ClassNotFoundException {
-         Hilos a = new Hilos();
+        Hilos a = new Hilos();
         a.iniciarHilos();
     }
 }
