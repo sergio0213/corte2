@@ -8,7 +8,6 @@ package com.unbosque;
 import com.unbosque.singletonsf2.BaseDeDatos;
 import com.unbosque.singletonsf2.Hilos;
 import java.sql.SQLException;
-import static org.testng.Assert.*;
 
 import org.testng.annotations.Test;
 

@@ -37,19 +37,22 @@ public class Hilos extends Thread {
     @Override
     public void run(){
         // guardamos en la base de datos
-        
+    long time_start, time_end;
+    time_start = System.currentTimeMillis();
         try {
             Statement s = bd.getConnection().createStatement();
             s.execute(sql);
             System.out.println(nombre + "-" + n + " sql:" + sql);
             s.close();
+       
         } catch (SQLException ex) {
              System.out.println("ERROR"+ex.getMessage());
             bd.Close();
           
            
         }
-
+     time_end = System.currentTimeMillis();
+        System.out.println("\n Duracion: " + (time_end - time_start) + " milliseconds");
     }
 
     public void iniciarHilos() throws ClassNotFoundException {
@@ -62,8 +65,11 @@ public class Hilos extends Thread {
             t3 = new Hilos("Thread 3", (int) n);
 
             // Arrancamos los threads
+
             t1.start();
+    
             t2.start();
+            
             t3.start();
 
         }
