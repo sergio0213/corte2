@@ -5,6 +5,7 @@
  */
 package com.unbosque.singletonsf2;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,21 +16,21 @@ import java.util.logging.Logger;
  *
  * @author scabrera
  */
-public class Hilos extends Thread {
+public class Hilo2 extends Thread {
 
     private String nombre;
     private int n = 0;
     private String sql;
     BaseDeDatos bd;
 
-    public Hilos() {
+    public Hilo2() {
 
     }
 
     // Constructor
-    public Hilos(String s, int n) throws ClassNotFoundException {
+    public Hilo2(String s, int n) throws ClassNotFoundException {
         this.nombre = s;
-      
+        sql = "INSERT INTO hilos VALUES(?,?);";
         bd = BaseDeDatos.getInstancia();
     }
 
@@ -40,15 +41,16 @@ public class Hilos extends Thread {
         try {
             long time_start, time_end;
             time_start = System.currentTimeMillis();
-            Statement s = bd.getConnection().createStatement();
+            PreparedStatement ps = bd.getConnection().prepareStatement(sql);
+           ps.setString(1, nombre);
             for (int i = 0; i < 5000; i++) {
                 n++;
-                sql = "INSERT INTO hilos VALUES('" + nombre + "'," + n + ");";
-                s.execute(sql);
-                System.out.println(" sql:" + sql);
+                ps.setInt(2, n);
+                ps.executeUpdate();
+                System.out.println(" int:" + n);
 
             }
-            s.close();
+          
             time_end = System.currentTimeMillis();
             System.out.println("#\n " + nombre + " Duracion: " + (time_end - time_start) + " milliseconds");
         } catch (SQLException ex) {
@@ -59,13 +61,13 @@ public class Hilos extends Thread {
 
     }
 
-    public void iniciarHilos() throws ClassNotFoundException {
-        Hilos t1, t2, t3;
+    public void iniciarHilo2() throws ClassNotFoundException {
+        Hilo2 t1, t2, t3;
 
         // Creamos los threads
-        t1 = new Hilos("Thread 1", (int) n);
-        t2 = new Hilos("Thread 2", (int) n);
-        t3 = new Hilos("Thread 3", (int) n);
+        t1 = new Hilo2("Thread 1", (int) n);
+        t2 = new Hilo2("Thread 2", (int) n);
+        t3 = new Hilo2("Thread 3", (int) n);
         // Arrancamos los threads
         t1.start();
         t2.start();
@@ -73,7 +75,7 @@ public class Hilos extends Thread {
 
     }
 
-    public void selectHilos() throws SQLException, ClassNotFoundException {
+    public void selectHilo2() throws SQLException, ClassNotFoundException {
         bd = BaseDeDatos.getInstancia();
         Statement s = bd.getConnection().createStatement();
         ResultSet rs = s.executeQuery("Select nombre, numero from grupo2.hilos order by nombre");

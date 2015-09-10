@@ -45,7 +45,8 @@ public class BaseDeDatos {
 
     /**
      * obtener la conexion
-     * @return 
+     *
+     * @return
      * @returns Conexion a la base de datos
      */
     public java.sql.Connection getConnection() {
@@ -67,19 +68,17 @@ public class BaseDeDatos {
             try {
                 connection = java.sql.DriverManager.getConnection(databaseURL, user, password);
                 System.out.println("Conexion establecida.");
-            } 
-         
-            catch (java.sql.SQLException e) {
-                
-                System.err.println("Error al establecer la conexion."+e.getMessage());
-                 throw new Exception("Error al establecer la conexion."+e.getMessage());
-              
+            } catch (java.sql.SQLException e) {
+
+                System.err.println("Error al establecer la conexion." + e.getMessage());
+                throw new Exception("Error al establecer la conexion." + e.getMessage());
+
             }
 
-// Deshabilitacion del autocommit
+// autocommit
             try {
-               connection.setAutoCommit(true);
-               System.out.println("Auto-commit .");
+                connection.setAutoCommit(true);
+                System.out.println("Auto-commit .");
             } catch (java.sql.SQLException e) {
                 System.out.println("Error al deshabilitar el auto-commit.");
                 return;

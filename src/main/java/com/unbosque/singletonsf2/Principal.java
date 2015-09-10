@@ -7,7 +7,7 @@ package com.unbosque.singletonsf2;
 
 /**
  *
- * @author ingeneo
+ * @author scabrera
  */
 public class Principal {
 
@@ -15,7 +15,7 @@ public class Principal {
     }
 
     public static void main(String[] args) throws ClassNotFoundException {
-        Hilos a = new Hilos();
-        a.iniciarHilos();
+        Hilo2 a = new Hilo2();
+        a.iniciarHilo2();
     }
 }
